@@ -22,14 +22,14 @@
         "host": "run-p host:server host:client",
         "host:server": "node dist/server",
         "host:client": "http-server dist/client",
-        "start": "run-p start:development:server start:development:client",
-        "start:server": "nodemon -e ts --watch src/counter-store.ts --watch src/server --exec npm run start:development:server:node",
+        "start": "run-p start:server start:client",
+        "start:server": "nodemon -e ts --watch src/counter-store.ts --watch src/server --exec npm run start:server:node",
         "start:server:node": "npm run build:server && node dist/server",
         "start:client": "webpack-dev-server --config ./webpack.config.js"
     },
     "dependencies": {
-        "co-share": "^3.2.0",
-        "co-share-socketio": "^3.2.0",
+        "co-share": "^3.2.3",
+        "co-share-socketio": "^3.2.7",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "zustand": "^3.6.4"

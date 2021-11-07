@@ -4,20 +4,21 @@ import ReactDOM from "react-dom"
 import { useStoreSubscription } from "co-share/react"
 import { CounterStore } from "../counter-store"
 import create from "zustand"
-import { useSocketIoConnection } from "co-share-socketio/react"
-
-function Index() {
-    return (
-        <Suspense fallback={"Loading ..."}>
-            <CounterExamplePage />
-        </Suspense>
-    )
-}
+import { SocketIOConnection } from "co-share-socketio/react"
 
 const url = `${window.location.protocol}//${window.location.hostname}:8081`
 
+function Index() {
+    return (
+        <SocketIOConnection fallback="Connecting ..." url={url}>
+            <Suspense fallback={"Loading ..."}>
+                <CounterExamplePage />
+            </Suspense>
+        </SocketIOConnection>
+    )
+}
+
 function CounterExamplePage() {
-    useSocketIoConnection(url)
     const store = useStoreSubscription("counter", 1000, (value: number) => new CounterStore(value))
     const useStoreState = useMemo(
         () =>
